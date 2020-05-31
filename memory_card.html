@@ -7,14 +7,12 @@
     <style>
 .card{
     background-color: rgb(61, 61, 61);
-    width: 130px; 
-    height: 180px;
+    width: 115px; 
+    height: 165px;
     border: 10px solid black;
     margin: 10px 20px 10px 20px;
     cursor: pointer;
 
-  
-    
 }
 .game_line{
     display: flex;
@@ -23,33 +21,20 @@ margin-bottom: 10px;
 
 #board{background: gray;
 border: blueviolet 5px double;
-width: 950px;
+width: 1050px;
 height: 450px;
 padding: 24px;
 margin: 0px auto;}
 
-/* 
-.pink { background-color:pink}
-.blue { background-color:blue}
-.yellow { background-color:yellow}
-.green { background-color:green}
-.red { background-color:red} */
-/* 
-#card1 {visibility: hidden;}
-#card2 {visibility: hidden;}
-#card3 {visibility: hidden;} */
+#restart{font-size: 30px; color: yellow; background-color: darkblue; border-radius: 20px; width: 250px;}
 
-img {width: 130px; 
-    height: 180px;
+
+
+img {width: 115px; 
+    height: 165px;
 background-color: white;
  visibility: hidden;} 
 
-/* #img1
-{width: 150px; 
-    height: 200px;
-background-color: white;
-visibility: hidden;}
- */
 
 
     </style>
@@ -59,28 +44,60 @@ visibility: hidden;}
         <h1><b>Memory Cards Game - By Shlomy</b></h1>
     <div id="board">
    <div class="game_line">
-       <div id ="card1" class="card blue color" onclick="cardClicked(event)" ><img src="Images/blue.png" ></div>
-       <div id ="card2" class="card yellow color"  onclick="cardClicked(event)"><img src="Images/yellow.jpg"></div>
-       <div id ="card3" class="card green color"   onclick="cardClicked(event)"><img src="Images/green.jpg"></div>
-       <div id ="card4" class="card pink color"    onclick="cardClicked(event)"><img src="Images/pink.png"></div>
-       <div id="card5" class="card red color" onclick="cardClicked(event)"><img src="Images/red.jpg"></div>
+       <div id ="card1" class="card blue color" onclick="cardClicked(event)" ><img src="" ></div>
+       <div id ="card2" class="card yellow color"  onclick="cardClicked(event)"><img src=""></div>
+       <div id ="card3" class="card green color"   onclick="cardClicked(event)"><img src=""></div>
+       <div id ="card4" class="card pink color"    onclick="cardClicked(event)"><img src=""></div>
+       <div id= "card5" class="card red color" onclick="cardClicked(event)"><img src=""></div>
+       <div id= "card6" class="card purple color" onclick="cardClicked(event)"><img src=""></div>
 
     </div>
    <div class="game_line">
-    <div id="card4" class="card pink color"  onclick="cardClicked(event)"><img src="Images/pink.png"></div>
-    <div id="card1" class="card blue color"  onclick="cardClicked(event)"><img src="Images/blue.png"></div>
-    <div id="card3" class="card green color"  onclick="cardClicked(event)"><img src="Images/green.jpg"></div>
-    <div id="card5" class="card red color" onclick="cardClicked(event)"><img src="Images/red.jpg"></div>
-    <div id="card2" class="card yellow color" onclick="cardClicked(event)"><img src="Images/yellow.jpg"></div>
-    </center>
+    <div id="card4" class="card pink color"  onclick="cardClicked(event)"><img src= ""></div>
+    <div id="card1" class="card blue color"  onclick="cardClicked(event)"><img src= ""></div>
+    <div id="card3" class="card green color"  onclick="cardClicked(event)"><img src=""></div>
+    <div id="card5" class="card red color" onclick="cardClicked(event)"><img src=   ""></div>
+    <div id="card2" class="card yellow color" onclick="cardClicked(event)"><img src=""></div>
+    <div id="card2" class="card purple color" onclick="cardClicked(event)"><img src=""></div>
+    </div>
+    <br>
+    <button id="restart">
+        New Game</button>
+</center>
 <script>
     var counter = 0
     var firstcard = null
     var EndGame=0
-    // var board = document.getElementsByClassName('game_line')[0,1];
-    // board.addEventListener('click', function(e){
-    //     console.log(e.currentTarget);
-    // })
+    var Pairs=6
+    var arrImg = [
+    'Images/yellow.jpg',
+    'Images/pink.png',
+    'Images/blue.png',
+    'Images/green.jpg',
+    'Images/purple.jpg',
+    'Images/red.jpg']
+    var arrcount =[0,0,0,0,0,0];
+    var cardsArr = document.querySelectorAll('img');
+    var btn_newgame = document.getElementById('restart');
+    btn_newgame.addEventListener('click',cardShuffle)
+    
+
+        
+        window.onload = cardShuffle();
+
+function cardShuffle() {
+  for (let i = 0; i < 12; i++) {
+      cardsArr[i].style.visibility = 'hidden';
+    var randomNum = Math.floor(Math.random() * Pairs);
+    if (arrcount[randomNum]==2){i--}
+    else{
+    cardsArr[i].src = arrImg[randomNum];
+    arrcount[randomNum]++;}
+  }
+};
+
+
+
 
     function cardClicked(e){
        
@@ -94,19 +111,20 @@ visibility: hidden;}
         else{
             firstcard=e.target
         } 
-        if (EndGame==5)
-        {alert("you find all the pairs")       
+        if (EndGame==Pairs)
+        {alert("you find all the pairs, click new game to restart!") 
+}       
         }
-    }
+    
     function checkPair(first, second) {
   if (first.querySelector('img').src !== second.querySelector('img').src) {
     setTimeout(() => {
       first.querySelector('img').style.visibility = 'hidden'
       second.querySelector('img').style.visibility = 'hidden'
-    }, 1500)}
+    }, 1200)}
     else{
-        first.querySelector('img').style.border = 'blueviolet 3px solid'
-      second.querySelector('img').style.border = 'blueviolet 3px solid'
+        first.querySelector('img').style.border = 'yellow 3px solid'
+      second.querySelector('img').style.border = 'yellow 3px solid'
       EndGame++
      }
 
